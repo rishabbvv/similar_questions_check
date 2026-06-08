@@ -28,7 +28,7 @@ python -m pip install -r requirements.txt
 If `python` is not on PATH in Codex, this bundled Python worked during setup:
 
 ```powershell
-& "C:\Users\risha\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" -m pip install -r requirements.txt
+& "C:\dependencies\python\python.exe" -m pip install -r requirements.txt
 ```
 
 ## Train Classic ML Baselines
@@ -36,37 +36,37 @@ If `python` is not on PATH in Codex, this bundled Python worked during setup:
 Train Logistic Regression with TF-IDF bag-of-words:
 
 ```powershell
-python src/train_baseline.py --data "C:\Users\risha\Downloads\question-pair.csv" --model logistic --features tfidf
+python src/train_baseline.py --data "data/question-pair.csv" --model logistic --features tfidf
 ```
 
 Train Random Forest with TF-IDF features reduced with SVD:
 
 ```powershell
-python src/train_baseline.py --data "C:\Users\risha\Downloads\question-pair.csv" --model random_forest --features tfidf
+python src/train_baseline.py --data "data/question-pair.csv" --model random_forest --features tfidf
 ```
 
 Train Logistic Regression using Word2Vec averaged sentence vectors:
 
 ```powershell
-python src/train_baseline.py --data "C:\Users\risha\Downloads\question-pair.csv" --model logistic --features word2vec
+python src/train_baseline.py --data "data/question-pair.csv" --model logistic --features word2vec
 ```
 
 For a fast smoke test, train on a sample:
 
 ```powershell
-python src/train_baseline.py --data "C:\Users\risha\Downloads\question-pair.csv" --sample-size 20000 --model logistic --features tfidf
+python src/train_baseline.py --data "data/question-pair.csv" --sample-size 20000 --model logistic --features tfidf
 ```
 
 ## Train Siamese LSTM
 
 ```powershell
-python src/train_siamese_lstm.py --data "C:\Users\risha\Downloads\question-pair.csv" --epochs 5 --batch-size 128
+python src/train_siamese_lstm.py --data "data/question-pair.csv" --epochs 5 --batch-size 128
 ```
 
 For a fast smoke test:
 
 ```powershell
-python src/train_siamese_lstm.py --data "C:\Users\risha\Downloads\question-pair.csv" --sample-size 20000 --epochs 1
+python src/train_siamese_lstm.py --data "data/question-pair.csv" --sample-size 20000 --epochs 1
 ```
 
 ## Predict With a Saved Baseline Model
@@ -86,7 +86,7 @@ python app.py
 If `python` is not on PATH, use:
 
 ```powershell
-& "C:\Users\risha\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" app.py
+& "C:\codex-primary-runtime\dependencies\python\python.exe" app.py
 ```
 
 Then open:
