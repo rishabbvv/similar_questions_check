@@ -86,7 +86,7 @@ python app.py
 If `python` is not on PATH, use:
 
 ```powershell
-& "C:\codex-primary-runtime\dependencies\python\python.exe" app.py
+& "C:\dependencies\python\python.exe" app.py
 ```
 
 Then open:
@@ -97,11 +97,9 @@ http://127.0.0.1:5000
 
 ## Run The Streamlit App
 
-Use this command locally:
 
-```powershell
-& "C:\Users\risha\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" -m streamlit run streamlit_app.py
-```
+
+
 
 For Streamlit Cloud, set the app entry point to:
 
