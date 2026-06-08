@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Duplicate Question Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <header class="header">
+          <div>
+            <p class="eyebrow"></p>
+            <h1>Duplicate Question Detector</h1>
+          </div>
+          <div class="status">
+            <span class="dot"></span>
+            <span>{{ device }}</span>
+          </div>
+        </header>
+
+        <form class="form" method="post">
+          <label for="question1">Question 1</label>
+          <textarea id="question1" name="question1" rows="5" placeholder="Enter the first question">{{ question1 }}</textarea>
+
+          <label for="question2">Question 2</label>
+          <textarea id="question2" name="question2" rows="5" placeholder="Enter the second question">{{ question2 }}</textarea>
+
+          {% if error %}
+            <p class="error">{{ error }}</p>
+          {% endif %}
+
+          <button type="submit">Predict</button>
+        </form>
+
+        {% if result %}
+          <section class="result" aria-live="polite">
+            <div>
+              <p class="result-label">Prediction</p>
+              <h2 class="{{ 'positive' if result.is_duplicate else 'negative' }}">{{ result.label }}</h2>
+            </div>
+            <div class="score">
+              <span>{{ result.percentage }}%</span>
+              <p>duplicate probability</p>
+            </div>
+            <div class="meter">
+              <div style="width: {{ result.percentage }}%"></div>
+            </div>
+          </section>
+        {% endif %}
+      </section>
+    </main>
+  </body>
+</html>
