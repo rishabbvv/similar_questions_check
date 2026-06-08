@@ -9,7 +9,7 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from train_siamese_lstm import SiameseLSTM, encode  # noqa: E402
+from lstm_inference import load_lstm_checkpoint, predict_duplicate as infer_duplicate  # noqa: E402
 
 
 MODEL_PATH = ROOT / "models" / "siamese_lstm.pt"
@@ -26,37 +26,11 @@ def load_model():
     if not MODEL_PATH.exists():
         raise FileNotFoundError(f"Model file not found: {MODEL_PATH}")
 
-    checkpoint = torch.load(MODEL_PATH, map_location=DEVICE)
-    args = checkpoint.get("args", {})
-    vocab = checkpoint["vocab"]
-    max_len = int(args.get("max_len", 40))
-
-    model = SiameseLSTM(
-        vocab_size=len(vocab),
-        embedding_dim=int(args.get("embedding_dim", 128)),
-        hidden_dim=int(args.get("hidden_dim", 128)),
-        dropout=float(args.get("dropout", 0.2)),
-        num_layers=int(args.get("num_layers", 1)),
-    ).to(DEVICE)
-    model.load_state_dict(checkpoint["model_state"])
-    model.eval()
+    model, vocab, max_len = load_lstm_checkpoint(MODEL_PATH, DEVICE)
 
 
 def predict_duplicate(question1: str, question2: str):
-    q1_ids = encode(question1, vocab, max_len)
-    q2_ids = encode(question2, vocab, max_len)
-    q1 = torch.tensor([q1_ids], dtype=torch.long, device=DEVICE)
-    q2 = torch.tensor([q2_ids], dtype=torch.long, device=DEVICE)
-
-    with torch.no_grad():
-        probability = torch.sigmoid(model(q1, q2)).item()
-
-    return {
-        "probability": probability,
-        "percentage": round(probability * 100, 2),
-        "is_duplicate": probability >= 0.5,
-        "label": "Duplicate" if probability >= 0.5 else "Not duplicate",
-    }
+    return infer_duplicate(model, vocab, max_len, question1, question2, DEVICE)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -81,7 +55,6 @@ def index():
         question2=question2,
         error=error,
         model_path=str(MODEL_PATH),
-        device=str(DEVICE),
     )
 
 

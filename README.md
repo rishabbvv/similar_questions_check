@@ -95,6 +95,22 @@ Then open:
 http://127.0.0.1:5000
 ```
 
+## Run The Streamlit App
+
+Use this command locally:
+
+```powershell
+& "C:\Users\risha\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" -m streamlit run streamlit_app.py
+```
+
+For Streamlit Cloud, set the app entry point to:
+
+```text
+streamlit_app.py
+```
+
+Make sure `models/siamese_lstm.pt` is committed with the project. The deployment uses the lightweight `requirements.txt`; the full training dependencies are in `requirements-training.txt`.
+
 ## Outputs
 
 Trained models are saved in `models/`.

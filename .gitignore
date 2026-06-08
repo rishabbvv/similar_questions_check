@@ -3,6 +3,7 @@ __pycache__/
 .venv/
 venv/
 env/
-models/
+models/*
+!models/siamese_lstm.pt
 reports/
 *.log
