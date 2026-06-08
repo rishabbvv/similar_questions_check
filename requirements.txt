@@ -1,4 +1,2 @@
-streamlit>=1.35
-flask>=3.0
---extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.3.1+cpu
+streamlit==1.35.0
+torch==2.3.1
