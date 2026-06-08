@@ -15,11 +15,7 @@ The expected CSV columns are:
 question1,question2,is_duplicate
 ```
 
-Your dataset was found at:
 
-```powershell
-C:\Users\risha\Downloads\question-pair.csv
-```
 
 ## Setup
 
